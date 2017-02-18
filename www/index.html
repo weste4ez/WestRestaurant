@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
   <!-- Site made with Mobirise Website Builder v3.10.1, https://mobirise.com -->
@@ -20,7 +20,8 @@
   <link rel="stylesheet" href="assets/dropdown/css/style.css">
   <link rel="stylesheet" href="assets/socicon/css/socicon.min.css">
   <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+    <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+    <link rel="stylesheet" href="css/index.css" type="text/css">
   
   
   
@@ -71,6 +72,8 @@
 
                     <h1 class="mbr-section-title display-1">WESTSIDE RESTAURANT</h1>
                     <p class="mbr-section-lead lead">An Elegant Restaurant of the Orients that fuses the best of the Western Culture with Souther Asian Cuisines</p>
+                    <h2 class="subHeader">Recent Posts From Reviewers</h2>
+                    <br/>
                     <div data-role="content">
     					<ul id="linksList" data-role="listview" data-inset="true"></ul>
 					</div>
@@ -123,8 +126,10 @@ var entries = [];
   $.get(RSS, {}, function(res, code) {
         var xml = $(res);
         var items = xml.find("item");
-        $.each(items, function(i, v) {
-            entry = { 
+        $.each(items, function (i, v) {
+            console.log(v);
+            entry = {
+                    
                     title:$(v).find("title").text(), 
                     link:$(v).find("link").text(), 
                     description:$.trim($(v).find("description").text())
@@ -134,11 +139,16 @@ var entries = [];
 
         //now draw the list
         var s = '';
-        $.each(entries, function(i, v) {
-            s += '&lt;li&gt;&lt;a href="#contentPage" class="contentLink" data-entryid="'+i+'"&gt;' + v.title + '&lt;/a&gt;&lt;/li&gt;';
-        });
-        $("#linksList").append(s);
-        $("#linksList").listview("refresh");
+      var max = 5;
+      $.each(entries, function (i, v) {
+          if (i < max) {
+              //s += '&lt;li&gt;&lt;a href="#contentPage" class="contentLink" data-entryid="'+i+'"&gt;' + v.title + '&lt;/a&gt;&lt;/li&gt;';
+              var title = $("<div style='color:silver''>" + v.title + "</div>");
+              title.appendTo($("#linksList"));
+          }
+      });
+        
+        //$("#linksList").listview("refresh");
     });
 });
 
