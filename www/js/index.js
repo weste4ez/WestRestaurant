@@ -21,6 +21,10 @@ var app = {
     initialize: function() {
         this.bindEvents();
     },
+	backKeyDown : function() 
+	   { 
+		  document.location('index.html');
+	   },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
@@ -34,6 +38,8 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+		document.addEventListener('backbutton', app.backKeyDown, false);
+		
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
